@@ -1,0 +1,17 @@
+<h1>Contest Question Page</h1>
+<body>
+    <!-- Piche se selected question ids ayenge from selected contest. So i just have an object of questions -->
+    All questions will be displayed here
+    <br><br>
+
+    Display questions
+    <!-- <p><%=Question.title%></p> -->
+    <%QuestionID.forEach(function(qss){
+        Question.forEach(function(qs){
+            if(qss.equals(qs._id)){%>
+                <a href="/question/contest/<%=qs._id%>"><p><%=qs.title%></p></a>
+        
+    <%}})})%>
+
+    <br><br><a href="/profile">View Profile</a>
+</body>

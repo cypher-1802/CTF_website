@@ -1,8 +1,16 @@
 var express = require('express')
 var router = express.Router();
+var bodyParser = require('body-parser');
 
-//Importing the model
-const User = require('./model/User');
+router.use(bodyParser.json())
+router.use(bodyParser.json({ type: 'application/*+json' }));
+router.use(bodyParser.urlencoded({ extended: false }));
+
+
+//Importing the models
+const User = require('../model/User');
+const Question = require('../model/Question');
+const Contest = require('../model/Contest');
 
 //---------------------------------------
 //Register Form
@@ -12,16 +20,30 @@ router.get('/register', function(req, res){
 
 //User Registration
 router.post('/register', async (req, res)=>{
-    const user = await User.create({
+    const user = new User({
         username: req.body.username,
         fname: req.body.fname,
         lname: req.body.lname,
-        bio: req.body.bio,
+        // bio: req.body.bio,
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password
     });
 
-    return res.render('index');
+    user.save()
+    .then((result)=>{
+        console.log("User created");
+    }).catch((err)=>{
+        console.log(err);
+    });
+
+    //Displaying Contests
+    try{
+        const contest = await Contest.find();
+        const Cuser = await User.find();
+        res.render('home', {User: Cuser, contestData: contest});
+    }catch(error){
+        res.status(400).json({message: error.message});
+    }
 });
 
 //Login Form
@@ -38,7 +60,13 @@ router.post('/login', async function(req, res){
             const result = req.body.password === user.password;
 
             if(result){
-                res.render('index');
+                try{
+                    const contest = await Contest.find();
+                    const Cuser = await User.find();
+                    res.render('home', {User: Cuser, contestData: contest});
+                }catch(error){
+                    res.status(400).json({message: error.message});
+                }
             }else{
                 res.status(400).json({error: "Password doesnt match"});
             }
@@ -56,19 +84,19 @@ router.get('/logout', function(req, res){
         if(err){
             return next(err);
         }
-        res.redirect('/');
+        res.render('index');
     });
 });
 
-// //Get all registered users
-// router.get('/users', async function(req, res){
-//     try{
-//         const data = await User.find();
-//         res.json(data);
-//     }catch(error){
-//         res.status(400).json({message: error.message});
-//     }
-// });
+//Get all registered users
+router.get('/users', async function(req, res){
+    try{
+        const data = await User.find();
+        res.json(data);
+    }catch(error){
+        res.status(400).json({message: error.message});
+    }
+});
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated())

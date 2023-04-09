@@ -1,0 +1,23 @@
+<h1>Individual Contest Page</h1>
+<body>
+    Details about Contest will be displayed here
+    <br><br>
+
+    <h2><%=Contest.title%></h2>
+    <p><%=Contest.body%></p>
+
+    <!-- Display questions -->
+    <!-- <%Contest.question.forEach(function(contest){%>
+        <p><%=contest%></p>
+        <% Question.forEach(function(qss){
+            if(contest.equals(qss._id)){
+            %>
+                <p><%=qss.title%></p>
+                <p><%=qss.body%></p>
+            <%
+            }
+        }) %>
+    <%})%> -->
+    <a href="/question/<%=Contest._id%>">Click here to Begin</a>
+    <br><br><a href="/profile">View Profile</a>
+</body>

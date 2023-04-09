@@ -1,0 +1,18 @@
+<h1>Individual Question Page</h1>
+<body>
+    Particular questions will be displayed here
+    <br><br>
+
+    <p><%=Question.title%></p>
+    <p><%=Question.body%></p>
+
+    <form action="/question/submit" method="POST" id="form1">
+        <label>Flag: </label>
+        <input type="text" name="flag" id="flag" placeholder="amin{1337}">
+        <input type="hidden" name="id" value=<%=Question._id%>>
+
+    <button type="submit" value="Submit">Submit</button>
+    </form>
+
+    <br><br><a href="/profile">View Profile</a>
+</body>

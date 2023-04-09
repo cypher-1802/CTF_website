@@ -9,13 +9,17 @@ var Contest = new Schema({
         type: String,
         require: true
     },
+    body:{
+        type: String,
+        require: true
+    },
     creator: {
         type: Schema.Types.ObjectId, //Object of User
         ref: 'User'
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     question: [{
         type: Schema.Types.ObjectId, //Object of Question

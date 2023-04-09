@@ -1,5 +1,19 @@
 <h1>Home Page</h1>
+<body>
+    This is Home Page
+    Contests will be displayed here
+    <br><br>
+    <% contestData.forEach(function(contest){ %>
+        <p>Contest: <a href="/contest/<%=contest._id%>"><%=contest.title%></a></p>
+        <% User.forEach(function(Cuser){
+            if(contest.creator.equals(Cuser._id)){
+            %>
+                <p>Created By: <%=Cuser.username%></p>
+            <%
+            }
+        }) %>
+        <p>Created On: <%=contest.date%></p><br><br>
+    <% }) %>
 
-<li><a href='/register'>Sign Up!</a></li>
-<li><a href='/login'>Login</a></li>
-<li><a href='/logout'>Logout</a></li>
+    <br><br><a href="/profile">View Profile</a>
+</body>

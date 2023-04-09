@@ -1,18 +1,24 @@
 var express = require('express')
+var bodyParser = require('body-parser');
 var router = express.Router();
 
+router.use(bodyParser.json())
+router.use(bodyParser.json({ type: 'application/*+json' }));
+router.use(bodyParser.urlencoded({ extended: false }));
+
 //Importing the model
-const User = require('./model/User');
+const User = require('../model/User');
 var multer = require('multer');
 
-router.use(multer({dest: './uploads/', rename: function(fieldname, filename){
-    return filename;
-},
-}));
+// router.use(multer({dest: '../uploads/', rename: function(fieldname, filename){
+//     return filename;
+// },
+// }));
 
 //---------------------------------------
 //Get user detail page
-router.get('/', isLoggedIn, function(req, res){
+// router.get('/', isLoggedIn, function(req, res){
+router.get('/', function(req, res){
     var user = req.user;
 
     res.render('profile', {user: 'user'});

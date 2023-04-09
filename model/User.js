@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
+const validator = require('validator');
 
-var User = new Schema({
+const User = new Schema({
     username: {
         type: String,
         unique: true,
@@ -23,7 +24,7 @@ var User = new Schema({
     },
     date_joined: {
         type: Date,
-        default: Date.now,
+        default: Date.now(),
     },
     photo: {
         data: Buffer,
@@ -32,20 +33,22 @@ var User = new Schema({
     email: {
         type: String,
         required: true,
-        validate: [
-            {validator: validators.notEmpty, msg: 'Email is empty'},
-            {validator: validators.isEmail, msg: 'Invalid email'}
-        ]
+        unique: true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("Please enter correct email");
+            }
+        }
     },
     password: {
         type: String,
         minlength: 8,
     },
-    contests_played: {  //Updates whenever player plays the game
+    contests_played: [{  //Updates whenever player plays the game
         contestID: {type: Schema.Types.ObjectId, ref: 'Contest'},
-        score: Number,
-        date: Date.now,
-    }, 
+        score: {type: Number,},
+        date: {type:Date, default: Date.now(),}
+    }],
 });
 
 User.plugin(passportLocalMongoose);

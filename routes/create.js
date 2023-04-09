@@ -1,10 +1,15 @@
 var express = require('express')
+var bodyParser = require('body-parser');
 var router = express.Router();
 
+router.use(bodyParser.json())
+router.use(bodyParser.json({ type: 'application/*+json' }));
+router.use(bodyParser.urlencoded({ extended: false }));
+
 //Importing the model
-const User = require('./model/User');
-const Question = require('./model/Question');
-const Contest = require('./model/Contest');
+const User = require('../model/User');
+const Question = require('../model/Question');
+const Contest = require('../model/Contest');
 
 //---------------------------------------
 router.get('/', isLoggedIn, function(req, res){
@@ -13,26 +18,37 @@ router.get('/', isLoggedIn, function(req, res){
 
 
 //Add desired number of questions, then club them to form a contest
-router.post('/', isLoggedIn, async function(req, res){
-    var loop = req.body.loop;
-    var title = req.body.title;
-    var creator = req.user;
+router.post('/', isLoggedIn, function(req, res){
+    const loop = req.body.loop;
 
-    await Contest.create({title: title, creator: creator});
-
+    const contests = new Contest({
+        title: req.body.title,
+        creator: req.body.creator,
+    })
+    
     for(let i=0; i<loop; i++){
-        var tt = req.body.tt;
-        var body = req.body.body;
-        var flag = req.body.flag;
-
-        Question.create({title: tt, body: body, flag: flag});
-
-        const ct = await Contest.findOne({title: title, creator: creator});
-        var qs = await Question.findOne({title: tt, body: body, flag: flag}); 
-        ct.question.push(qs);
-
-        ct.save();
+        const ques = new Question({
+            tt: req.body.title,
+            body: req.body.body,
+            flag: req.body.flag,
+        })
+        ques.save()
+        .then((result)=>{
+        console.log("Question created");
+        }).catch((err)=>{
+        console.log(err);
+        });
+ 
+        contests.question.push(ques);
     }
+    
+    contests.save()
+    .then((result)=>{
+    console.log("Contest created");
+    }).catch((err)=>{
+    console.log(err);
+    });
+
     res.render('contest');
 })
 
