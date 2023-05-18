@@ -1,4 +1,4 @@
-<h1>Individual Contest Page</h1>
+<!-- <h1>Individual Contest Page</h1>
 <body>
     Details about Contest will be displayed here
     <br><br>
@@ -6,18 +6,55 @@
     <h2><%=Contest.title%></h2>
     <p><%=Contest.body%></p>
 
-    <!-- Display questions -->
-    <!-- <%Contest.question.forEach(function(contest){%>
-        <p><%=contest%></p>
-        <% Question.forEach(function(qss){
-            if(contest.equals(qss._id)){
-            %>
-                <p><%=qss.title%></p>
-                <p><%=qss.body%></p>
-            <%
-            }
-        }) %>
-    <%})%> -->
     <a href="/question/<%=Contest._id%>">Click here to Begin</a>
     <br><br><a href="/profile">View Profile</a>
+</body> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel = "stylesheet" href = "/css/main.css">
+
+    <title>home</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+    <a class="navbar-brand" href="/authentication/login">
+      PortCTF
+    </a>
+    
+    <!-- Toggle button is activated on small screen -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/authentication/login">Home</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Contests</a>
+        </li> -->
+        <!-- <li class="nav-item dropdown">
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <img class="bg" src="/image/ctf.png" alt="">
+		  <div class="instruction">
+            <h1 style="text-align: center;padding-bottom:2% ;"><%=Contest.title%></h1>
+            <p style="padding: 2.5%;"><%=Contest.body%></p>
+            <div>
+                <a class="conteststart" href="/question/<%=Contest._id%>" >Start Contest</a>
+            </div>
+          </div>
 </body>
+</html>

@@ -40,7 +40,8 @@ router.post('/register', async (req, res)=>{
     try{
         const contest = await Contest.find();
         const Cuser = await User.find();
-        res.render('home', {User: Cuser, contestData: contest});
+        // res.render('home', {User: Cuser, contestData: contest});
+        res.redirect('/contest');
     }catch(error){
         res.status(400).json({message: error.message});
     }
@@ -63,7 +64,8 @@ router.post('/login', async function(req, res){
                 try{
                     const contest = await Contest.find();
                     const Cuser = await User.find();
-                    res.render('home', {User: Cuser, contestData: contest});
+                    // res.render('home', {User: Cuser, contestData: contest});
+                    res.redirect('/contest');
                 }catch(error){
                     res.status(400).json({message: error.message});
                 }

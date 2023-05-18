@@ -35,6 +35,23 @@ router.get('/(:id)', async function(req,res){
     // res.render('contest');
 });
 
+//Using query parameter ?status=ongoing
+router.get('/', async function(req, res){
+    try{
+        var ct = await Contest.find({activeState: req.query.status||"ongoing"});//|active
+        var Cuser = await User.find();
+
+        if(!ct){
+            res.status(404).send({message: 'No contest found'});
+        }else{
+            res.render('home', {Contest: ct, stat: req.query.status, User: Cuser});
+        }
+
+    }catch(error){
+        res.status(400).json({message: error.message});
+    }
+});
+
 //Sorting the contests may be added
 
 function isLoggedIn(req, res, next){

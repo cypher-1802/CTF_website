@@ -1,12 +1,11 @@
-<h1>Contest Question Page</h1>
+<!-- <h1>Contest Question Page</h1>
 <body>
-    <!-- Piche se selected question ids ayenge from selected contest. So i just have an object of questions -->
     All questions will be displayed here
     <br><br>
 
-    Display questions
+    Display questions -->
     <!-- <p><%=Question.title%></p> -->
-    <%QuestionID.forEach(function(qss){
+    <!-- <%QuestionID.forEach(function(qss){
         Question.forEach(function(qs){
             if(qss.equals(qs._id)){%>
                 <a href="/question/contest/<%=qs._id%>"><p><%=qs.title%></p></a>
@@ -14,4 +13,41 @@
     <%}})})%>
 
     <br><br><a href="/profile">View Profile</a>
-</body>
+</body> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/problemans.css">
+
+    <title>Question</title>
+</head>
+
+<body>
+    <img class="bg" src="/image/ctf.png" alt="">
+    <div class="contest">
+        <h2 class="name">Problems</h2>
+        <%QuestionID.forEach(function(qss){
+            Question.forEach(function(qs){
+                if(qss.equals(qs._id)){%>
+        <div class="card1">
+            <img class="img" src="/image/CTFcontest2.png" alt="Avatar">
+            <div class="container">
+                <h4><b><%=qs.title%></b></h4>
+                <a class="start" href="/question/contest/<%=qs._id%>">Start &#8594</a>
+            </div>
+        </div>
+        <%}})})%>
+
+    </div>
+    </body>
+
+</html>

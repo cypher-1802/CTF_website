@@ -1,4 +1,4 @@
-<h1>Individual Question Page</h1>
+<!-- <h1>Individual Question Page</h1>
 <body>
     Particular questions will be displayed here
     <br><br>
@@ -15,4 +15,39 @@
     </form>
 
     <br><br><a href="/profile">View Profile</a>
+</body> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel = "stylesheet" href = "/css/main.css">
+
+    <title><%=Question.title%></title>
+</head>
+<body>
+  <img class="bg" src="/image/ctf.png" alt="">
+		  <div class="instruction">
+            <h1 style="text-align: center;padding-bottom:2% ;"><%=Question.title%></h1>
+            <p style="padding: 2.5%;"><%=Question.body%></p>
+
+            <div class="input-field" style="align-items: center; padding: 2%; margin-left: 35%;">
+                <form action="/question/submit" method="POST" id="form1">
+                    <input type="text" name="flag" id="flag" placeholder="portCTF{1337}">
+                    <input type="hidden" name="id" value=<%=Question._id%>>
+                </form>
+            </div>
+
+            <div class="action" style="align-items: center; padding: 2%; margin-left: 38.5%;">
+                <button type="submit" value="Submit">Submit</button>
+            </div>
+
+            <!-- <div id="verdict"></div>
+            <script src="./js/form.js"></script> -->
+          </div>
 </body>
+</html>

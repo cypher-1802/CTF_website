@@ -50,6 +50,8 @@ app.use('/leaderboard', leaderboard);
 app.use('/profile', profile);
 app.use('/createQues', createQues);
 
+app.use(express.static(__dirname + '/views'));
+
 // passport.use(new LocalStrategy(User.authenticate()));
 // passport.serializeUser(User.serializeUser());
 // passport.deserializeUser(User.deserializeUser());
@@ -70,23 +72,23 @@ passport.deserializeUser(function(id, done){
 //Home Page
 app.get('/', function(req, res){
     // res.status(400).json({message: "HEYYY!"});
-    res.render("index");
+    res.render("login");
 });
 
-app.get('/', isLoggedIn, function(req,res){
-    user = req.user.get('username');
-    // res.status(400).json({message:"HEY"});
-    res.render('index', {user: 'user'});
-})
+// app.get('/', isLoggedIn, function(req,res){
+//     user = req.user.get('username');
+//     // res.status(400).json({message:"HEY"});
+//     res.render('index', {user: 'user'});
+// })
 
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated())
-        return next();
-    res.redirect('/login');
-}
+// function isLoggedIn(req, res, next){
+//     if(req.isAuthenticated())
+//         return next();
+//     res.redirect('/login');
+// }
 
 // MONGO DB-SERVER CONNECTION
-const port = process.env.PORT??4000;
+const port = process.env.PORT||4000;
 const databaseConnection = require('./database/connect')
 databaseConnection.then(()=>{
     app.listen(port, ()=>{

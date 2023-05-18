@@ -20,6 +20,9 @@ var Question = new Schema({
     flag: {
         type: String,
         require: true
+    },
+    score: {
+        type: Number,
     }
 });
 

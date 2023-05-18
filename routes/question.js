@@ -63,17 +63,23 @@ router.post('/submit', function(req, res){
                 res.status(404).json({message: "Question ID not found"});
             }else{
                 if(req.body.flag === Ques.flag){
+                    const isCorrect = true;
+                    // res.json({isCorrect});
                     //Update users scores
                     res.render('success', {id: req.body.id, message: "Flag is correct!"});
                 }else{
+                    const isCorrect = false;
+                    // res.json({isCorrect});
                     res.render('success', {id: req.body.id, message: "Flag is incorrect!"});
                 }
+                
             }
         })
     }catch(error){
         res.status(400).json({message: error.message});
     }
 })
+
 
 //Sorting the contests may be added
 

@@ -17,9 +17,13 @@ var Contest = new Schema({
         type: Schema.Types.ObjectId, //Object of User
         ref: 'User'
     },
-    date: {
+    activeTime:{
         type: Date,
-        default: Date.now()
+        require: true
+    },
+    activeState: {
+        type: String,
+        require: true,
     },
     question: [{
         type: Schema.Types.ObjectId, //Object of Question
